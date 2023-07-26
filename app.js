@@ -10,6 +10,8 @@ import { __dirname } from "./utils.js";
 import indexRouter from "./routes/index.js"; //enrutador principal de la aplicacion.
 import error_handler from "./middlewares/error_handler.js";
 import not_found_handler from "./middlewares/not_found_handler.js";
+import paymentRoutes from "./routes/payment_routes.js"
+
 
 let app = express(); //defino una variable con la ejecucion del modulo de express para poder crear un servidor.
 
@@ -31,5 +33,7 @@ app.use(cors()); //obliga al servidor a permitir el cruce de origenes de front/b
 app.use("/api", indexRouter); //obliga al servidor a usar las rutas definidas en el enrutador principal con la palabrita "/api"
 app.use(not_found_handler);
 app.use(error_handler);
+
+app.use(express.static(path.resolve('src/public')))
 
 export default app;

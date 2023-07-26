@@ -1,11 +1,14 @@
-
 import Manga from '../../models/Manga.js';
 
 async function read(req, res, next) {
-  const { category, title, page } = req.query;
+  const { category, title, page, author_id } = req.query;
   const perPage = 4;
   const queries = {};
   const sort = { title: 1 }; // Orden ascendente por título
+
+  if(author_id){
+    queries.author_id = author_id;
+  }
 
   if (title) {
     queries.title = { $regex: title.trim(), $options: 'i' };

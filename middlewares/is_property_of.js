@@ -1,36 +1,24 @@
 import Manga from "../models/Manga.js";
 
-const isPropertyOf = async (req, res, next) => {
-  const { mangaId } = req.params;
-
+async function is_property_of(req, res, next) {
   try {
-    const manga = await Manga.findById(mangaId);
-
-    if (!manga) {
-      return res.status(404).json({ error: "The manga was not found." });
-    }
-
-    if (
-      req.author &&
-      req.author._id.toString() === manga.author_id.toString()
-    ) {
+    //console.log(req);
+    let manga = await Manga.findOne({
+      manga_id: req.body.manga_id,
+      author_id: req.body.author_id,
+    });
+    //console.log(manga);
+    if (manga) {
       return next();
     }
-
-    if (
-      req.company &&
-      req.company._id.toString() === manga.company_id.toString()
-    ) {
-      return next();
-    }
-
-    return res
-      .status(403)
-      .json({ error: "You do not have permission to perform this action." });
+    return res.status(404).json({
+      success: false,
+      message: ["The manga or author does not belong to the logged in author"],
+    });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "A server error has occurred." });
+    next(error);
   }
-};
+}
 
-export default isPropertyOf;
+export default is_property_of;
