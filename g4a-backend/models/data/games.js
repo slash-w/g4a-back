@@ -1,6 +1,7 @@
 import "../../config/database.js"
 import Game from "../Games.js"
 import "dotenv/config.js"
+import mongoose from "mongoose"
 
 let games = [
     {
@@ -1375,9 +1376,25 @@ let games = [
     rating_pos:531,
     rating_neg:50
     },]
-    
-console.log('>>>',games.length)
+
+// Create a map to store company IDs based on first publisher values
+const publisherMap = new Map();
+
+// Iterate through the games array
+for (const game of games) {
+  const firstPublisher = game.publishers[0];
   
+  if (publisherMap.has(firstPublisher)) {
+    game.company_id = publisherMap.get(firstPublisher);
+  } else {
+    // Generate a new mongoose ObjectId for the company_id
+    const company_id = mongoose.Types.ObjectId();
+    game.company_id = company_id;
+    publisherMap.set(firstPublisher, company_id);
+  }
+}
+
+console.log('>>>',games.length)
 
 
 async function uploadGames() {

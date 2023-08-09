@@ -2,7 +2,7 @@ import Game from "../../models/Games.js";
 
 const get_game_by_id = async (req, res) => {
   try {
-    const gameId = req.params.id; // Assuming the game ID is passed as a URL parameter
+    const gameId = req.params.id;
     
     const game = await Game.findById(gameId);
     
