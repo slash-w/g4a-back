@@ -1,31 +1,31 @@
 // En el archivo 'read.js'
 
-import Game from '../../models/Games.js';
+import Game from "../../models/Games.js";
 
 async function read(req, res, next) {
   const { category, title, page } = req.query;
-  const perPage = 6;
+  const perPage = 200;
   const queries = {};
   const sort = { title: 1 }; // Orden ascendente por título
 
   if (title) {
-    queries.title = { $regex: title.trim(), $options: 'i' };
+    queries.title = { $regex: title.trim(), $options: "i" };
   }
 
   if (category) {
-    queries.category_id = { $in: category.trim().split(',') }; // Ajusta el filtro de categoría según la propiedad del modelo
+    queries.category_id = { $in: category.trim().split(",") }; // Ajusta el filtro de categoría según la propiedad del modelo
   }
 
   try {
     const totalGames = await Game.countDocuments(queries);
     const totalPages = Math.ceil(totalGames / perPage);
 
-    let currentPage = parseInt(page, 10) || 1;
+    let currentPage = parseInt(page, 8) || 1;
     currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
     const skip = (currentPage - 1) * perPage;
     const games = await Game.find(queries)
-      .select('-createdAt -updatedAt') // Proteger las propiedades createdAt y updatedAt
+      .select("-createdAt -updatedAt") // Proteger las propiedades createdAt y updatedAt
       .sort(sort)
       .skip(skip)
       .limit(perPage);

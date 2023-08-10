@@ -1,27 +1,30 @@
 import joi from "joi";
 
 const userRegister = joi.object({
-  email: joi.string().required().email({ minDomainSegments: 2 }).messages({
-    "any.required": "Email is required",
-    "string.empty": "Email is required",
-    "string.email": "Invalid email",
+  email: joi
+    .string()
+    .required()
+    .email({
+      minDomainSegments: 2,
+    })
+    .messages({
+      "string.base": "Email must be a text string",
+      "string.empty": "Email is a required field",
+      "string.email": "Email must be valid",
+      "string.minDomainSegments":
+        "Email must contain at least two domain segments",
+    }),
+  password: joi.string().required().min(8).max(35).alphanum().messages({
+    "string.base": "Password must be a string",
+    "string.empty": "Password is a required field",
+    "string.min": "Password must have at least 8 characters",
+    "string.max": "Password cannot exceed 35 characters",
+    "string.alphanum": "Password can only contain alphanumeric characters",
   }),
   photo: joi.string().required().uri().messages({
-    "any.required": "Photo is required",
-    "string.empty": "Photo is required",
-    "string.uri": "Invalid photo URL",
-  }),
-  password: joi.string().required().min(8).max(35).alphanum().messages({
-    "any.required": "Password is required",
-    "string.empty": "Password is required",
-    "string.min": "Password is too short",
-    "string.max": "Password is too long",
-  }),
-  role: joi.number().required().min(0).max(1).messages({
-    "any.required": "role is required",
-    "number.empty": "role is required",
-    "number.min": "role is invalid",
-    "number.max": "role is invalid",
+    "string.base": "The photo must be a text string",
+    "string.empty": "Photo is a required field",
+    "string.uri": "Photo must be a valid URL",
   }),
 });
 

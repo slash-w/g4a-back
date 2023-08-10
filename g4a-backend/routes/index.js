@@ -1,6 +1,7 @@
 import express from "express";
 import game_router from "./games.js";
 import comment_router from "./comments.js";
+import auth_router from "./users.js";
 
 let router = express.Router();
 
@@ -11,5 +12,5 @@ router.get("/", function (req, res, next) {
 
 router.use("/games", game_router);
 router.use("/comment", comment_router);
-
+router.use("/auth", auth_router);
 export default router;
