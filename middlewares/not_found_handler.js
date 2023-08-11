@@ -1,8 +1,8 @@
-const not_found_handler = (req,res,next) => {
-    return res.status(404).json({
-        success: false,
-        message: `${req.method} ${req.url} not found`
-    })
+import createHttpError from "http-errors"
+
+
+const notFoundHandler = (req, res, next) => {
+    next(createHttpError(404, 'Ruta no encontrada'))
 }
 
-export default not_found_handler
+export default notFoundHandler

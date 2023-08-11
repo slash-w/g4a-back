@@ -10,7 +10,7 @@ import { __dirname } from "./utils.js";
 import indexRouter from "./routes/index.js"; //enrutador principal de la aplicacion.
 import error_handler from "./middlewares/error_handler.js";
 import not_found_handler from "./middlewares/not_found_handler.js";
-import paymentRoutes from "./routes/payment_routes.js"
+
 
 
 let app = express(); //defino una variable con la ejecucion del modulo de express para poder crear un servidor.
