@@ -1,4 +1,4 @@
-import Comment from "../../g4a-backend/models/Comments.js";
+import Comment from "../../models/Comments.js";
 
 let createComment = async (req, res, next) => {
   try {
@@ -14,7 +14,6 @@ let createComment = async (req, res, next) => {
     });
 
     await comment.save();
-
     return res.status(201).json({
       success: "ok",
       id: comment._id,
@@ -22,7 +21,7 @@ let createComment = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    return next(500, error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 

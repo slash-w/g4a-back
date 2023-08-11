@@ -20,6 +20,7 @@
     "dotenv": "^16.3.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "gapi-script": "^1.2.0",
     "googleapis": "^123.0.0",
     "http-errors": "~1.6.3",
     "joi": "^17.9.2",
@@ -33,6 +34,7 @@
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "react-google-login": "^5.2.2",
     "supertest": "^6.3.3"
   },
   "devDependencies": {

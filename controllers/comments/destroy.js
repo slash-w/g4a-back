@@ -1,4 +1,4 @@
-import Comment from "../../g4a-backend/models/Comments.js";
+import Comment from "../../models/Comments.js";
 
 const deleteComment = async (req, res, next) => {
   try {
