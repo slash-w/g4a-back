@@ -1,4 +1,4 @@
-import Comment from "../../models/Comment.js";
+import Comment from "../../models/Comments.js";
 
 const updateComment = async (req, res, next) => {
   try {
