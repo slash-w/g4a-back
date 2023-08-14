@@ -1,4 +1,4 @@
-import Game from 'models/Games.js';
+import Game from '../../models/Games.js';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -9,7 +9,11 @@ const game_filter = async (req, res) => {
     const currentPage = parseInt(page) || 1; // default 1
     const skipItems = (currentPage - 1) * ITEMS_PER_PAGE;
 
-    const gamesFound = { genres: { $in: categories } };
+    // Construct a query to find games with matching genres
+    const gamesFound = {
+      "genres.description": { $in: [categories] } // Assuming categories is a single genre description
+    };
+    
     const totalGames = await Game.countDocuments(gamesFound);
 
     const games = await Game.find(gamesFound)
