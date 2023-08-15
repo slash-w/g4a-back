@@ -4,7 +4,7 @@ import Game from "../../models/Games.js";
 
 async function read(req, res, next) {
   const { category, title, page } = req.query;
-  const perPage = 200;
+  const perPage = 100;
   const queries = {};
   const sort = { title: 1 }; // Orden ascendente por título
 
@@ -20,7 +20,7 @@ async function read(req, res, next) {
     const totalGames = await Game.countDocuments(queries);
     const totalPages = Math.ceil(totalGames / perPage);
 
-    let currentPage = parseInt(page, 8) || 1;
+    let currentPage = parseInt(page, 10) || 1;
     currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
     const skip = (currentPage - 1) * perPage;
