@@ -1,6 +1,7 @@
 import Joi from "joi-oid";
 
 const gameCreate = Joi.object({
+  
   name: Joi.string().messages({
     "any.required": "Name is required",
     "string.empty": "Name is required",

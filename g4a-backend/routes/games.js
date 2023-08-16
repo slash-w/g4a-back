@@ -8,6 +8,7 @@ import passport from "../middlewares/passport.js";
 import validator from "../middlewares/validator.js";
 import create from "../controllers/games/create.js";
 import pay from "../controllers/games/pay.js";
+
 const game_router = Router();
 
 game_router.get("/:id", read_one);
