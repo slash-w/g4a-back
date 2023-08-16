@@ -1,5 +1,5 @@
-import User from "./path-to-your-user-model"; // Update the path to your User model
 import { ObjectId } from "mongoose";
+import User from "../models/Users";
 
 const checkProductOwnershipMiddleware = async (req, res, next) => {
   const userId = req.user._id;

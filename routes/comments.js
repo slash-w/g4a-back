@@ -10,8 +10,8 @@ import getCommentsByGameId from "../controllers/comments/getCommentsByGameId.js"
 let comment_router = Router();
 
 comment_router.post("/", createComment);
-comment_router.put("/id", passport.authenticate("jwt", { session: false }), verifyCommentOwnership, updateComment);
-comment_router.delete("/id", verifyCommentOwnership, deleteComment);
+comment_router.put("/:id", updateComment);
+comment_router.delete("/:id", deleteComment);
 comment_router.get("/:id", getCommentsByGameId);
 
 export default comment_router;
