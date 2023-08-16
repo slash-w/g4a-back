@@ -11,7 +11,6 @@ export default async (req, res, next) => {
         enabled: true,
       },
     });
-
     res.json({ paymentIntent: paymentIntent.client_secret });
   } catch (error) {
     console.error("Error creating Payment Intent:", error);
