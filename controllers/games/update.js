@@ -1,23 +1,20 @@
-import Game from "../../models/Game.js";
+import Game from "../../models/Games.js";
 
-const update = async (req, res, next) => {
+export default async function (req, res, next) {
   try {
-    let update = await Game.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate("category_id");
-    if (update) {
-      return res.status(200).json({
-        success: true,
-        message: ["Game updated"],
-        update: update,
-      });
-    } else {
-      return res.status(404).json({
-        success: false,
-        message: ["Not found"],
-      });
+    const idGame = req.params.id;
+    // Encontrar el capítulo en la base de datos
+    const game = await Game.findById(idGame);
+    if (!game) {
+      return res.status(404).json({ error: "Game not found" });
     }
-  } catch (error) {
-    next(error);
-  }
-};
+    // Actualizar los datos del capítulo con los nuevos datos(solo actualiza los campos presentes en req.body)
+    game.set(req.body);
+    // Guardar los cambios en la base de datos
+    await game.save();
 
-export default update;
+    res.json({ message: "Game update succeful" });
+  } catch (err) {
+    return next(err);
+  }
+}
